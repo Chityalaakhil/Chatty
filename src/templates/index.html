@@ -1,0 +1,30 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cohere Chat</title>
+  <!-- <link rel="stylesheet" href="../static/styles.css" /> -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+
+  <!-- <script src="{{ url_for('static', filename='config.js') }}"></script> -->
+  <!-- <script src="{{ url_for('static', filename='script.js') }}"></script> -->
+
+</head>
+<body>
+  <main class="chat-container">
+    <div id="chat" class="chat-box"></div>
+    <form id="chat-form" class="input-form">
+      <input id="message-input" type="text" placeholder="Ask anything..." required />
+      <button type="submit" title="Send">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.59 5.58L20 12l-8-8-8 8z"/>
+        </svg>
+      </button>
+    </form>
+  </main>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
