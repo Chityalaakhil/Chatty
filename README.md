@@ -5,7 +5,7 @@ A chat app created using Cohere.
 
 ### Prerequisites
 
-- Python 3.8+
+- Python 3.13
 - (Recommended) Create and activate a virtual environment
 
 ### Installation
@@ -22,7 +22,7 @@ A chat app created using Cohere.
    ```
 
 3. **Set up environment variables:**
-   - Create a `.env` file in the root directory and add required environment variables (such as API keys for Cohere if needed).
+   - Create a `.env` file in the root directory and add required environment variables (such as API keys for Cohere).
 
 ### Running the Application
 
@@ -32,7 +32,7 @@ A chat app created using Cohere.
   ```
   or, if your app entry point is a file (e.g., `app.py`):
   ```bash
-  python app.py
+  python src/app.py
   ```
 
 - **Production server (using Gunicorn):**
@@ -44,4 +44,3 @@ A chat app created using Cohere.
 
 ---
 
-Feel free to update this with any specific configuration or startup scripts your project requires!
