@@ -12,7 +12,6 @@ import logging
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 # import re
-
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -129,7 +128,7 @@ async def embed_texts(texts, input_type="search_document"):
         logger.info(f"Generating embeddings for {len(texts)} texts")
         response = co.embed(
             texts=texts,
-            model="embed-english-v3.0",
+            model="embed-v4.0",
             input_type=input_type,
             embedding_types=["float"]
         )
@@ -185,6 +184,7 @@ def update_memory(user_id, user_msg, bot_msg):
     memory.setdefault(user_id, []).append({"role": "user", "content": user_msg})
     memory[user_id].append({"role": "chatbot", "content": bot_msg})
     # Limit memory to last 10 messages
+    # will have to adjust this later as needed
     memory[user_id] = memory[user_id][-10:]
     logger.debug(f"Updated memory for user {user_id}: {len(memory[user_id])} messages")
 
@@ -215,7 +215,7 @@ def prepare_semantic_context(query, user_id, max_length=MAX_CONTEXT_LENGTH):
         # Generate embedding for the query
         query_embeddings = co.embed(
             texts=[query],
-            model="embed-english-v3.0",
+            model="embed-v4.0",
             input_type="search_query",
             embedding_types=["float"]
         )
@@ -356,7 +356,7 @@ def upload_document():
         try:
             embeddings = co.embed(
                 texts=text_chunks,
-                model="embed-english-v3.0",
+                model="embed-v4.0",
                 input_type="search_document",
                 embedding_types=["float"]
             )
@@ -659,7 +659,7 @@ def debug_user_state():
 if __name__ == "__main__":
     # For local development
     port = int(os.getenv('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=True)
 else:
     # For Azure deployment
     # Azure will handle the WSGI server
