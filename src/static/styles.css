@@ -1,4 +1,3 @@
-/* styles.css */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -14,7 +13,7 @@ body {
 
 /* Document Sidebar */
 .document-sidebar {
-  width: 300px;
+  width: 320px;
   background-color: white;
   border-right: 1px solid #e0e0e0;
   display: flex;
@@ -74,6 +73,11 @@ body {
   background-color: #f0fff0;
 }
 
+.upload-area.uploading {
+  border-color: #007bff;
+  background-color: #f0f8ff;
+}
+
 .upload-icon {
   font-size: 2rem;
   margin-bottom: 0.5rem;
@@ -87,6 +91,13 @@ body {
 .upload-hint {
   font-size: 0.8rem;
   color: #666;
+}
+
+.upload-progress {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #007bff;
+  display: none;
 }
 
 .file-input {
@@ -116,6 +127,12 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.document-item:hover {
+  background-color: #e9ecef;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .document-info {
@@ -128,6 +145,14 @@ body {
   font-size: 0.9rem;
   margin-bottom: 0.25rem;
   word-break: break-word;
+}
+
+.document-meta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+  color: #666;
 }
 
 .document-preview {
@@ -149,10 +174,102 @@ body {
   cursor: pointer;
   font-size: 0.75rem;
   flex-shrink: 0;
+  transition: background-color 0.2s;
 }
 
 .delete-btn:hover {
   background: #c82333;
+}
+
+/* Search Section */
+.search-section {
+  padding: 1rem;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.search-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.search-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #10a37f;
+}
+
+.search-btn {
+  width: 100%;
+  background: #10a37f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-btn:hover {
+  background: #0e866a;
+}
+
+.search-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.search-results {
+  margin-top: 0.75rem;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+}
+
+.search-result-item {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.search-result-header {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.25rem;
+}
+
+.search-result-snippet {
+  color: #666;
+  line-height: 1.3;
+}
+
+.similarity-score {
+  float: right;
+  background: #10a37f;
+  color: white;
+  padding: 0.125rem 0.25rem;
+  border-radius: 3px;
+  font-size: 0.7rem;
 }
 
 .document-toggle {
@@ -245,6 +362,25 @@ body {
   flex: 1;
 }
 
+.chat-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ccc;
+}
+
+.status-indicator.documents-active {
+  background-color: #10a37f;
+}
+
 .chat-actions {
   display: flex;
   gap: 0.5rem;
@@ -278,7 +414,6 @@ body {
   padding: 0.75rem 1rem;
   border-radius: 16px;
   line-height: 1.4;
-  white-space: pre-wrap;
   word-wrap: break-word;
 }
 
@@ -293,6 +428,16 @@ body {
   background-color: white;
   border: 1px solid #e0e0e0;
   color: #333;
+}
+
+.message.system {
+  align-self: center;
+  background-color: #e3f2fd;
+  border: 1px solid #bbdefb;
+  color: #1565c0;
+  font-style: italic;
+  max-width: 90%;
+  text-align: center;
 }
 
 .input-form {
@@ -358,6 +503,9 @@ body {
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
+  .app-container {
+    max-height: calc(100% - 110px);
+  }
   .document-sidebar {
     position: fixed;
     top: 0;
@@ -365,6 +513,7 @@ body {
     height: 100vh;
     z-index: 1000;
     transform: translateX(-100%);
+    width: 300px;
   }
 
   .document-sidebar.open {
@@ -383,8 +532,17 @@ body {
     font-size: 1.2rem;
   }
 
+  .chat-status {
+    display: none;
+  }
+
   .message {
     max-width: 90%;
+  }
+
+  .input-form {
+    border-radius: 28px;
+    margin: 0px 10px;
   }
 }
 
@@ -392,12 +550,11 @@ body {
   .document-sidebar {
     width: 280px;
   }
-  
+
   .chat-header {
     padding: 0.75rem;
   }
-  
+
   .input-form {
     padding: 0.75rem;
   }
-}

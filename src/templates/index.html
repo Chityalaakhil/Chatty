@@ -1,9 +1,9 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <title>Cohere Chat with Semantic Search</title> -->
   <title>Cohere Chat</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
@@ -26,8 +26,19 @@
           <div class="upload-icon">📄</div>
           <div class="upload-text">Click or drag files here</div>
           <div class="upload-hint">Supports: PDF, DOCX, TXT, MD</div>
+          <div class="upload-progress" id="uploadProgress">Processing...</div>
           <input type="file" id="fileInput" class="file-input" accept=".pdf,.docx,.txt,.md" multiple>
         </div>
+      </div>
+      
+      <!-- Semantic Search Section -->
+      <div class="search-section">
+        <div class="search-header">
+          <span class="search-title">🔍 Search Documents</span>
+        </div>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search your documents...">
+        <button id="searchBtn" class="search-btn">Search</button>
+        <div class="search-results" id="searchResults"></div>
       </div>
       
       <div class="documents-list" id="documentsList">
@@ -42,7 +53,7 @@
         </label>
       </div>
     </aside>
-
+    
     <!-- Main Chat Area -->
     <main class="chat-container">
       <div class="chat-header">
@@ -52,6 +63,10 @@
           </svg>
         </button>
         <h1>Cohere Chat</h1>
+        <div class="chat-status">
+          <span class="status-indicator" id="statusIndicator"></span>
+          <span id="statusText">General Mode</span>
+        </div>
         <div class="chat-actions">
           <button id="clear-history" class="action-btn" title="Clear History">
             <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
@@ -63,7 +78,7 @@
       
       <div id="chat" class="chat-box">
         <div class="message bot">
-          Hello! I'm your Cohere chat assistant. Upload documents using the sidebar to ask questions about your files, or chat normally without documents.
+          Hello! I'm your enhanced Cohere chat assistant with semantic search capabilities. Upload documents and use the search feature to find relevant information, or enable "Use Documents" mode for context-aware conversations.
         </div>
       </div>
       
@@ -77,7 +92,6 @@
       </form>
     </main>
   </div>
-  
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
