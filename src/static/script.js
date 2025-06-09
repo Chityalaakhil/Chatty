@@ -57,7 +57,7 @@ function buildUrl(endpoint) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Enhanced Cohere Chat initialized');
+  console.log('Cohere Chat initialized');
   console.log('Base URL:', CONFIG.getBaseUrl());
   console.log('User ID:', userId);
   loadDocuments();
